@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TelefonoRequest {
 
-    private Integer number;
-    private Integer cityCode;
-    private Integer countryCode;
+    private String number;
+    private String cityCode;
+    private String countryCode;
 }

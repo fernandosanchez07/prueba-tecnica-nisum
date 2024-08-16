@@ -7,4 +7,5 @@ import co.com.nisum.usuarios.domain.response.UsuarioResponse;
 public interface UsuarioPort {
 
     UsuarioResponse registrarUsuario(UsuarioRequest request) throws HandledException;
+
 }

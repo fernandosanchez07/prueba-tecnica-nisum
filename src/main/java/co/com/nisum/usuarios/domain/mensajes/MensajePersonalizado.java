@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 public class MensajePersonalizado {
 
     public static String obtenerMensaje(String identificadorMensaje){
-        ResourceBundle bundle = ResourceBundle.getBundle("mensajes", Locale.getDefault());
+        ResourceBundle bundle = ResourceBundle.getBundle("message", Locale.getDefault());
         return bundle.getString(identificadorMensaje);
     }
 

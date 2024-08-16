@@ -1,7 +1,11 @@
 package co.com.nisum.usuarios.infraestructure.exitpoints.h2database.entity;
 
+
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
@@ -12,20 +16,22 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
-public class UsuarioEntity {
+@Table(name = "contact_phone")
+public class ContactoTelefonoEntity {
 
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id")
     private UUID id;
-    @Column(name = "name")
-    private String nombre;
-    @Column(name = "email")
-    private String email;
-    @Column(name = "password")
-    private String password;
+    @Column(name = "id_user")
+    private UUID idUser;
+    @Column(name = "number_phone")
+    private String numberPhone;
+    @Column(name = "city_code")
+    private String cityCode;
+    @Column(name = "country_code")
+    private String countryCode;
     @Column(name = "fecha_creacion")
     private LocalDateTime fechaCreacion;
     @Column(name = "usuario_creacion")
