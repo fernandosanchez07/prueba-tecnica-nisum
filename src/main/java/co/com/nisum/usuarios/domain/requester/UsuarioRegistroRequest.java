@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioRequest {
+public class UsuarioRegistroRequest {
 
     @NotNull(message = "El campo no puede ser nulo.")
     @NotBlank(message = "El campo no puede estar vacio.")
@@ -25,6 +25,7 @@ public class UsuarioRequest {
     private String email;
     @NotNull(message = "El campo no puede ser nulo.")
     @NotBlank(message = "El campo no puede estar vacio.")
+    @Pattern(regexp = ".*\\d.*")
     private String password;
     private List<TelefonoRequest> phones;
 }
