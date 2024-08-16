@@ -2,10 +2,8 @@ package co.com.nisum.usuarios.infraestructure.exitpoints.h2database.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
@@ -13,6 +11,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -32,10 +31,12 @@ public class ContactoTelefonoEntity {
     private String cityCode;
     @Column(name = "country_code")
     private String countryCode;
+    @CreationTimestamp
     @Column(name = "fecha_creacion")
     private LocalDateTime fechaCreacion;
+    @Builder.Default
     @Column(name = "usuario_creacion")
-    private String usuarioCreacion;
+    private String usuarioCreacion = "NISUM";
     @Column(name = "fecha_actualizacion")
     private LocalDateTime fechaActualizacion;
     @Column(name = "usuario_actualizacion")

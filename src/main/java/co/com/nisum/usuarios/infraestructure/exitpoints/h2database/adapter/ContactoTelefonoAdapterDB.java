@@ -21,7 +21,12 @@ public class ContactoTelefonoAdapterDB implements ContactoTelefonoRepository {
     public void guardarTelefonos(List<ContactoTelefono> telefonos) {
         List<ContactoTelefonoEntity> telefonosEntity =
                 telefonos.stream()
-                        .map(telefono -> this.modelMapper.map(telefono, ContactoTelefonoEntity.class))
+                        .map(telefono -> {
+                            ContactoTelefonoEntity entity =
+                                    this.modelMapper.map(telefono, ContactoTelefonoEntity.class);
+                            entity.setUsuarioCreacion("NISUM");
+                            return entity;
+                        })
                         .toList();
 
         this.contactoTelefonoRepositoryDB.saveAll(telefonosEntity);

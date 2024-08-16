@@ -23,10 +23,13 @@ public class UsuarioAdapterDB implements UsuarioRepository {
 
     @Override
     public Usuario registrarUsuario(Usuario usuario) {
+
         UsuarioEntity usuarioEntity =
                 this.usuarioRepositoryDB.saveAndFlush(
                         this.modelMapper.map(usuario, UsuarioEntity.class)
                 );
+
+        usuarioEntity.setUsuarioCreacion("NISUM");
 
         return this.modelMapper.map(usuarioEntity, Usuario.class);
     }

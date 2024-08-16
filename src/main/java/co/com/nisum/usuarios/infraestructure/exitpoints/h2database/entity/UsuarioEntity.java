@@ -2,6 +2,7 @@ package co.com.nisum.usuarios.infraestructure.exitpoints.h2database.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
@@ -26,7 +27,8 @@ public class UsuarioEntity {
     private String email;
     @Column(name = "password")
     private String password;
-    @Column(name = "fecha_creacion")
+    @CreationTimestamp
+    @Column(name = "fecha_creacion", updatable = false, nullable = false)
     private LocalDateTime fechaCreacion;
     @Column(name = "usuario_creacion")
     private String usuarioCreacion;

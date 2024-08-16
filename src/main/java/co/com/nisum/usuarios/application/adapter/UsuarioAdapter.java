@@ -41,6 +41,7 @@ public class UsuarioAdapter implements UsuarioPort {
         return UsuarioResponse.builder()
                 .id(usuario.getId())
                 .created(usuario.getFechaCreacion())
+                .lastLogin(usuario.getFechaCreacion())
                 .token(null)
                 .isActive(Boolean.TRUE)
                 .build();
