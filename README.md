@@ -38,7 +38,7 @@ Tiene 3 endpoints principales los cuales se pueden ejecutar desde insomnia o pos
    - El endpoint no cuenta con seguridad por ser el endpoint de inicio.
    - En caso de que se intente registrar dos veces el mismo usuario se retorna un mensaje segun las indicaciones de la prueba.
 2. Logueo de usuarios: **POST** http://localhost:8000/auth/login
-   - Este endpoint tampoco cuenta con seguridad ya que aca tambien se da el JWT.
+   - Este endpoint tampoco cuenta con seguridad ya que este tambien tiene la capacidad de retornar el JWT.
    - Este endpoint permite logguear un usuario con su email y password.
    - Este enpoint retorna el id del usuario registrado y su JWT para poder consumir el ultimo endpoint. 
 4. Actualizacion de usuario. **PUT** http://localhost:8000/user/update
