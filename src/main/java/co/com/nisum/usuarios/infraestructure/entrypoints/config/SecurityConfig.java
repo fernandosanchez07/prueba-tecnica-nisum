@@ -47,7 +47,7 @@ public class SecurityConfig {
                                 frame -> frame.disable())
                 )
                 .authorizeHttpRequests(authRequest ->
-                        authRequest.requestMatchers("/auth/register", "/h2/**").permitAll()
+                        authRequest.requestMatchers("/doc/**", "/h2/**", "/auth/register").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager ->
