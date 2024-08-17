@@ -1,3 +1,11 @@
+spring:
+  application:
+    name: usuarios
+
+server:
+  port: 8000
+
+
 secretyKey: NISUM7KKKLSLDLFLSKKDKSLDFKLSKDL234K2K2L3J23L2LKSKDF2L3K23L4K2L33K4K2K34J2J34L2KL3L2
 
 springdoc:
