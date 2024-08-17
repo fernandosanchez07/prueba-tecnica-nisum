@@ -1,9 +1,10 @@
 package co.com.nisum.usuarios.domain.requester;
 
+import co.com.nisum.usuarios.infraestructure.entrypoints.annotations.PatternPassword;
+import co.com.nisum.usuarios.infraestructure.entrypoints.component.ValidationPatternPassword;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,12 @@ import java.util.List;
 @NoArgsConstructor
 public class UsuarioRegistroRequest {
 
+    private static String patternPassword;
+
+    public void setPatternPassword(ValidationPatternPassword patternPassword) {
+        UsuarioRegistroRequest.patternPassword = patternPassword.getPattern();
+    }
+
     @NotNull(message = "El campo no puede ser nulo.")
     @NotBlank(message = "El campo no puede estar vacio.")
     private String name;
@@ -25,7 +32,7 @@ public class UsuarioRegistroRequest {
     private String email;
     @NotNull(message = "El campo no puede ser nulo.")
     @NotBlank(message = "El campo no puede estar vacio.")
-    @Pattern(regexp = ".*\\d.*")
+    @PatternPassword
     private String password;
     private List<TelefonoRequest> phones;
 }

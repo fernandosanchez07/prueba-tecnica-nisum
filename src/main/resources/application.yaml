@@ -3,3 +3,6 @@ secretyKey: NISUM7KKKLSLDLFLSKKDKSLDFKLSKDL234K2K2L3J23L2LKSKDF2L3K23L4K2L33K4K2
 springdoc:
   swagger-ui:
     path: /doc/swagger-ui.html
+
+validation:
+  pattern-password: .*\d.*
