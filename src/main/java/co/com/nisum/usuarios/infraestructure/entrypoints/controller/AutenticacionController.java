@@ -30,8 +30,7 @@ public class AutenticacionController {
     }
 
         @PostMapping(value = "/login")
-    public ResponseEntity<InicioSesionResponse> iniciarSesion(@Valid @RequestBody InicioSesionRequest request)
-            throws HandledException {
+    public ResponseEntity<InicioSesionResponse> iniciarSesion(@Valid @RequestBody InicioSesionRequest request) throws HandledException {
         return ResponseEntity.ok(this.autenticacionAppServices.iniciarSesion(request));
     }
 }

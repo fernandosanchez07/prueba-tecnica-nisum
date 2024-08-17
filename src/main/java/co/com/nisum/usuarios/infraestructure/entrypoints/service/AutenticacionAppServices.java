@@ -19,7 +19,7 @@ public class AutenticacionAppServices {
         return this.autenticacionPort.registrarUsuario(request);
     }
 
-    public InicioSesionResponse iniciarSesion(InicioSesionRequest request) {
+    public InicioSesionResponse iniciarSesion(InicioSesionRequest request) throws HandledException {
         return this.autenticacionPort.iniciarSesion(request);
     }
 }

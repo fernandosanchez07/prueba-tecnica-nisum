@@ -6,6 +6,7 @@ import co.com.nisum.usuarios.domain.requester.UsuarioActualizacionRequest;
 import co.com.nisum.usuarios.domain.response.UsuarioActualizacionResponse;
 import co.com.nisum.usuarios.domain.response.UsuarioRegistroResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,5 +17,9 @@ public class UsuarioAppServices {
 
     public UsuarioActualizacionResponse actualizarUsuario(UsuarioActualizacionRequest request) throws HandledException {
         return this.usuarioPort.actualizarUsuario(request);
+    }
+
+    public UserDetails obtenerUserDetails(String username){
+        return this.usuarioPort.obtenerUserDetails(username);
     }
 }

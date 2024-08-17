@@ -4,6 +4,8 @@ package co.com.nisum.usuarios.infraestructure.entrypoints.config;
 import co.com.nisum.usuarios.application.port.JwtTokenPort;
 import co.com.nisum.usuarios.application.port.UsuarioPort;
 import co.com.nisum.usuarios.infraestructure.entrypoints.jwt.JwtAuthenticationFilter;
+import co.com.nisum.usuarios.infraestructure.entrypoints.service.JwtAppServices;
+import co.com.nisum.usuarios.infraestructure.entrypoints.service.UsuarioAppServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,9 +25,9 @@ public class SecurityConfig {
 
     private final AuthenticationProvider authenticationProvider;
 
-    private final JwtTokenPort jwtTokenPort;
+    private final JwtAppServices jwtAppServices;
 
-    private final UsuarioPort usuarioPort;
+    private final UsuarioAppServices usuarioAppServices;
 
 
     @Bean
@@ -35,7 +37,7 @@ public class SecurityConfig {
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter(jwtTokenPort, usuarioPort);
+        return new JwtAuthenticationFilter(jwtAppServices, usuarioAppServices);
     }
 
     @Bean

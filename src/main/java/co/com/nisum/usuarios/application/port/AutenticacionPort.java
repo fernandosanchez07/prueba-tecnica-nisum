@@ -10,5 +10,5 @@ public interface AutenticacionPort {
 
     UsuarioRegistroResponse registrarUsuario(UsuarioRegistroRequest request) throws HandledException;
 
-    InicioSesionResponse iniciarSesion(InicioSesionRequest request);
+    InicioSesionResponse iniciarSesion(InicioSesionRequest request) throws HandledException;
 }

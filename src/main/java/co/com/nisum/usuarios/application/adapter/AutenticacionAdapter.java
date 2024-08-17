@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @RequiredArgsConstructor
 public class AutenticacionAdapter implements AutenticacionPort {
 
@@ -77,14 +78,25 @@ public class AutenticacionAdapter implements AutenticacionPort {
                 .collect(Collectors.toList());
     }
 
-    public InicioSesionResponse iniciarSesion(InicioSesionRequest request) {
+    @Override
+    public InicioSesionResponse iniciarSesion(InicioSesionRequest request) throws HandledException {
+
+        validarExistenciaUsuario(request.getEmail());
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         Usuario usuario = this.usuarioRepository.consultarPorEmail(request.getEmail());
-        String token = jwtTokenPort.generarToken(usuario);
+        String token = this.jwtTokenPort.generarToken(usuario);
+
         return InicioSesionResponse.builder()
                 .id(usuario.getId())
                 .token(token)
                 .build();
+    }
+
+    private void validarExistenciaUsuario(String email) throws HandledException {
+        if (!this.usuarioRepository.existeCorreo(email)) {
+            throw new HandledException(MensajePersonalizado.obtenerMensaje("mensaje.error.user-not-existe-login"));
+        }
     }
 }

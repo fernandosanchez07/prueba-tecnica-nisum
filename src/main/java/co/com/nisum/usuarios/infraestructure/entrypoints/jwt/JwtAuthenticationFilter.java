@@ -3,6 +3,8 @@ package co.com.nisum.usuarios.infraestructure.entrypoints.jwt;
 import co.com.nisum.usuarios.application.port.JwtTokenPort;
 import co.com.nisum.usuarios.application.port.UsuarioPort;
 import co.com.nisum.usuarios.domain.exception.HandledException;
+import co.com.nisum.usuarios.infraestructure.entrypoints.service.JwtAppServices;
+import co.com.nisum.usuarios.infraestructure.entrypoints.service.UsuarioAppServices;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,9 +26,9 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtTokenPort jwtTokenPort;
+    private final JwtAppServices jwtAppServices;
 
-    private final UsuarioPort usuarioPort;
+    private final UsuarioAppServices usuarioAppServices;
 
     @Override
     protected void doFilterInternal(
@@ -36,12 +38,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = obtenerTokenSolicitud(request);
         try {
             if (StringUtils.hasText(token)) {
-                String username = this.jwtTokenPort.obtenerNombreDesdeToken(token);
+                String username = this.jwtAppServices.obtenerNombreDesdeToken(token);
 
                 if (Objects.nonNull(username) &&
                         Objects.isNull(SecurityContextHolder.getContext().getAuthentication())) {
-                    UserDetails userDetails = this.usuarioPort.obtenerUserDetails(username);
-                    if (this.jwtTokenPort.elTokenEsValido(token, userDetails)) {
+                    UserDetails userDetails = this.usuarioAppServices.obtenerUserDetails(username);
+                    if (this.jwtAppServices.elTokenEsValido(token, userDetails)) {
 
                         UsernamePasswordAuthenticationToken authenticationToken =
                                 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
