@@ -51,4 +51,4 @@ Tiene 3 endpoints principales los cuales se pueden ejecutar desde insomnia:
   hago uso del patron adaptador, el patron builde, entre otros posible patrones que en un proyecto mas robusto se podrian implementar.
 - Se agrego una secretKey para la validacion del token, esta key se encuentra en el application.yaml, aunque se puede haber extendido a variables de entorno pero no se hizo para que la prueba se pueda testear mas facilmente.
 - El patron del password actualmente indica que se la password debe tener al menos un caracter numerico, pero puede ser cambiado segun se desee.
-- Se realizarion pruebas deiferentes pruebas unitarias a diferentes partes del proyecto.
+- Se realizarion pruebas unitarias a diferentes partes del proyecto.
