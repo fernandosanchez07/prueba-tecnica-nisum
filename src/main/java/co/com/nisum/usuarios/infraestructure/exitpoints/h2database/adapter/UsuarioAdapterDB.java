@@ -1,6 +1,8 @@
 package co.com.nisum.usuarios.infraestructure.exitpoints.h2database.adapter;
 
 import co.com.nisum.usuarios.domain.common.Usuario;
+import co.com.nisum.usuarios.domain.enums.ClienteType;
+import co.com.nisum.usuarios.domain.enums.EstadoUsuarioType;
 import co.com.nisum.usuarios.domain.repository.UsuarioRepository;
 import co.com.nisum.usuarios.infraestructure.exitpoints.h2database.entity.UsuarioEntity;
 import co.com.nisum.usuarios.infraestructure.exitpoints.h2database.repository.UsuarioRepositoryDB;
@@ -31,8 +33,8 @@ public class UsuarioAdapterDB implements UsuarioRepository {
                         this.modelMapper.map(usuario, UsuarioEntity.class)
                 );
 
-        usuarioEntity.setUsuarioCreacion("NISUM");
-        usuarioEntity.setEstado("ACTIVE");
+        usuarioEntity.setUsuarioCreacion(ClienteType.NISUM.name());
+        usuarioEntity.setEstado(EstadoUsuarioType.ACTIVE.name());
 
         return this.modelMapper.map(usuarioEntity, Usuario.class);
     }
