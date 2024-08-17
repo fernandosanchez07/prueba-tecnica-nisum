@@ -11,7 +11,8 @@ Se realizo la prueba para el registro de usuario con los siguientes parametros t
 - JUnit
 - Mockito
 - Hibernate
-- JPA
+- JPA.
+  
 Se tuvo en cuenta conceptos de clean code, patrones de diseño y principios solid.
 
 ### Base de datos
@@ -30,7 +31,7 @@ A este se puede acceder en la siguiente URL:
 ## Contexto de funcionamiento
 En los archivos del proyecto se encuentra un arhcivo con nombre **endpoints-prueba-tecnica-nisum.json** exportado desde insomnia para que los endpoinst se puedan probar mas facilmente.
 La api se ejecuta en el puerto 8000 pero se puede cambiar en el application.yaml, implica ajustar los endpoints del archivo.
-Tiene 3 endpoints principales los cuales se pueden ejecutar desde insomnia:
+Tiene 3 endpoints principales los cuales se pueden ejecutar desde insomnia o postman:
 
 1. Registro de usuario: **POST** http://localhost:8000/auth/register
    - Este endpoint permite registrar el usuario segun el formato indicado y retornando la informacion solicitada.
