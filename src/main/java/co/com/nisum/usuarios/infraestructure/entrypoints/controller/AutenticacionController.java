@@ -1,7 +1,9 @@
 package co.com.nisum.usuarios.infraestructure.entrypoints.controller;
 
 import co.com.nisum.usuarios.domain.exception.HandledException;
+import co.com.nisum.usuarios.domain.requester.InicioSesionRequest;
 import co.com.nisum.usuarios.domain.requester.UsuarioRegistroRequest;
+import co.com.nisum.usuarios.domain.response.InicioSesionResponse;
 import co.com.nisum.usuarios.domain.response.UsuarioRegistroResponse;
 import co.com.nisum.usuarios.infraestructure.entrypoints.service.AutenticacionAppServices;
 import jakarta.validation.Valid;
@@ -21,8 +23,14 @@ public class AutenticacionController {
     private final AutenticacionAppServices autenticacionAppServices;
 
     @PostMapping(value = "/register")
-    public ResponseEntity<UsuarioRegistroResponse> registrarUsuario(@Valid @RequestBody UsuarioRegistroRequest request)
+    public ResponseEntity<UsuarioRegistroResponse> registrar(@Valid @RequestBody UsuarioRegistroRequest request)
             throws HandledException {
         return ResponseEntity.ok(this.autenticacionAppServices.registrarUsuario(request));
+    }
+
+        @PostMapping(value = "/login")
+    public ResponseEntity<InicioSesionResponse> iniciarSesion(@Valid @RequestBody InicioSesionRequest request)
+            throws HandledException {
+        return ResponseEntity.ok(this.autenticacionAppServices.iniciarSesion(request));
     }
 }

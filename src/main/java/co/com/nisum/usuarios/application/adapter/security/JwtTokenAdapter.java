@@ -34,13 +34,13 @@ public class JwtTokenAdapter implements JwtTokenPort {
                 .setSubject(usuario.getEmail())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
-                .signWith(getKey(), SignatureAlgorithm.HS256)
+                .signWith(obtenerKey(), SignatureAlgorithm.HS256)
                 .compact();
 
     }
 
 
-    private Key getKey() {
+    private Key obtenerKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
@@ -60,7 +60,7 @@ public class JwtTokenAdapter implements JwtTokenPort {
 
     public Claims obtenerClaims(String token) {
         return Jwts.parser()
-                .setSigningKey(getKey())
+                .setSigningKey(obtenerKey())
                 .build()
                 .parseSignedClaims(token)
                 .getBody();

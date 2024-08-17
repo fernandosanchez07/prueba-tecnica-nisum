@@ -11,6 +11,8 @@ import co.com.nisum.usuarios.domain.repository.UsuarioRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class BeanConfiguration {
@@ -23,8 +25,15 @@ public class BeanConfiguration {
     @Bean
     public AutenticacionPort getAutenticacionPort(UsuarioRepository usuarioRepository,
                                                   ContactoTelefonoRepository contactoTelefonoRepository,
-                                                  JwtTokenPort jwtTokenPort) {
-        return new AutenticacionAdapter(usuarioRepository, contactoTelefonoRepository, jwtTokenPort);
+                                                  JwtTokenPort jwtTokenPort,
+                                                  AuthenticationManager authenticationManager,
+                                                  PasswordEncoder passwordEncoder) {
+        return new AutenticacionAdapter(
+                usuarioRepository,
+                contactoTelefonoRepository,
+                jwtTokenPort,
+                authenticationManager,
+                passwordEncoder);
     }
 
     @Bean

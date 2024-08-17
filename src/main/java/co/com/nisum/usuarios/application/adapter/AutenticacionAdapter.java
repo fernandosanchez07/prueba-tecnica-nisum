@@ -8,10 +8,15 @@ import co.com.nisum.usuarios.domain.exception.HandledException;
 import co.com.nisum.usuarios.domain.mensajes.MensajePersonalizado;
 import co.com.nisum.usuarios.domain.repository.ContactoTelefonoRepository;
 import co.com.nisum.usuarios.domain.repository.UsuarioRepository;
+import co.com.nisum.usuarios.domain.requester.InicioSesionRequest;
 import co.com.nisum.usuarios.domain.requester.TelefonoRequest;
 import co.com.nisum.usuarios.domain.requester.UsuarioRegistroRequest;
+import co.com.nisum.usuarios.domain.response.InicioSesionResponse;
 import co.com.nisum.usuarios.domain.response.UsuarioRegistroResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +28,8 @@ public class AutenticacionAdapter implements AutenticacionPort {
     private final UsuarioRepository usuarioRepository;
     private final ContactoTelefonoRepository contactoTelefonoRepository;
     private final JwtTokenPort jwtTokenPort;
+    private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -34,7 +41,7 @@ public class AutenticacionAdapter implements AutenticacionPort {
                 Usuario.builder()
                         .nombre(request.getName())
                         .email(request.getEmail())
-                        .password(request.getPassword())
+                        .password(this.passwordEncoder.encode(request.getPassword()))
                         .build()
         );
 
@@ -68,5 +75,16 @@ public class AutenticacionAdapter implements AutenticacionPort {
                                 .build()
                 )
                 .collect(Collectors.toList());
+    }
+
+    public InicioSesionResponse iniciarSesion(InicioSesionRequest request) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        Usuario usuario = this.usuarioRepository.consultarPorEmail(request.getEmail());
+        String token = jwtTokenPort.generarToken(usuario);
+        return InicioSesionResponse.builder()
+                .id(usuario.getId())
+                .token(token)
+                .build();
     }
 }

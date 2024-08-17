@@ -32,6 +32,7 @@ public class UsuarioAdapterDB implements UsuarioRepository {
                 );
 
         usuarioEntity.setUsuarioCreacion("NISUM");
+        usuarioEntity.setEstado("ACTIVE");
 
         return this.modelMapper.map(usuarioEntity, Usuario.class);
     }

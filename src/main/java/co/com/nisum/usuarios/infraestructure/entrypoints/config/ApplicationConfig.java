@@ -35,4 +35,5 @@ public class ApplicationConfig {
     public UserDetailsService obtenerUserDetailService() {
         return username -> this.usuarioPort.loadUserByUsername(username);
     }
+
 }

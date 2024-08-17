@@ -47,7 +47,7 @@ public class SecurityConfig {
                                 frame -> frame.disable())
                 )
                 .authorizeHttpRequests(authRequest ->
-                        authRequest.requestMatchers("/doc/**", "/h2/**", "/auth/register").permitAll()
+                        authRequest.requestMatchers(urlsAExluir()).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager ->
@@ -56,5 +56,18 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .build();
+    }
+
+    private String[] urlsAExluir() {
+        return new String[]{
+                // -- Swagger UI v3 (OpenAPI)
+                "/v3/api-docs/**",
+                "/swagger-ui/**",
+                "/doc/**",
+                //Api usuarios
+                "/h2/**",
+                "/auth/register",
+                "/auth/login"
+        };
     }
 }

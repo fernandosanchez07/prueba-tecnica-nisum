@@ -27,6 +27,8 @@ public class UsuarioEntity {
     private String email;
     @Column(name = "password")
     private String password;
+    @Column(name = "status")
+    private String estado;
     @CreationTimestamp
     @Column(name = "fecha_creacion", updatable = false, nullable = false)
     private LocalDateTime fechaCreacion;
