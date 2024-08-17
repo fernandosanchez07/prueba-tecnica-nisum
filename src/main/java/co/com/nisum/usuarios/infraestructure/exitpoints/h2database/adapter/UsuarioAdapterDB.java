@@ -47,4 +47,10 @@ public class UsuarioAdapterDB implements UsuarioRepository {
         Optional<UsuarioEntity> usuarioEntity = this.usuarioRepositoryDB.findById(id);
         return usuarioEntity.map(entity -> this.modelMapper.map(entity, Usuario.class)).orElse(new Usuario());
     }
+
+    @Override
+    public Usuario consultarPorEmail(String email) {
+        Optional<UsuarioEntity> usuarioEntity = this.usuarioRepositoryDB.findByEmail(email);
+        return usuarioEntity.map(entity -> this.modelMapper.map(entity, Usuario.class)).orElse(new Usuario());
+    }
 }

@@ -13,4 +13,6 @@ public interface UsuarioRepository {
     Usuario actualizarUsuario(Usuario request);
 
     Usuario consultarPorId(UUID id);
+
+    Usuario consultarPorEmail(String email);
 }

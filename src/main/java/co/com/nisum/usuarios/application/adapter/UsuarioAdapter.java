@@ -1,5 +1,6 @@
 package co.com.nisum.usuarios.application.adapter;
 
+import co.com.nisum.usuarios.application.port.JwtGeneratorPort;
 import co.com.nisum.usuarios.application.port.UsuarioPort;
 import co.com.nisum.usuarios.domain.common.ContactoTelefono;
 import co.com.nisum.usuarios.domain.common.Usuario;
@@ -12,8 +13,16 @@ import co.com.nisum.usuarios.domain.requester.UsuarioActualizacionRequest;
 import co.com.nisum.usuarios.domain.requester.UsuarioRegistroRequest;
 import co.com.nisum.usuarios.domain.response.UsuarioResponse;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.mapping.Collection;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +31,14 @@ public class UsuarioAdapter implements UsuarioPort {
 
     private final UsuarioRepository usuarioRepository;
     private final ContactoTelefonoRepository contactoTelefonoRepository;
+    private final JwtGeneratorPort jwtGeneratorPort;
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Usuario usuario = this.usuarioRepository.consultarPorEmail(username);
+        return new User(usuario.getEmail(), usuario.getPassword(), new ArrayList<>());
+    }
 
     @Override
     public UsuarioResponse registrarUsuario(UsuarioRegistroRequest request) throws HandledException {
@@ -44,7 +61,7 @@ public class UsuarioAdapter implements UsuarioPort {
                 .id(usuario.getId())
                 .created(usuario.getFechaCreacion())
                 .lastLogin(usuario.getFechaCreacion())
-                .token(null)
+                .token(this.jwtGeneratorPort.generarToken(usuario))
                 .isActive(Boolean.TRUE)
                 .build();
     }
@@ -84,23 +101,11 @@ public class UsuarioAdapter implements UsuarioPort {
 
     private Usuario modificarInformacion(UsuarioActualizacionRequest request) throws HandledException {
         Usuario usuario = this.usuarioRepository.consultarPorId(request.getId());
-
         usuario.setNombre(request.getName());
-        usuario.setEmail(verificarCorreo(request.getEmail(), usuario));
-        usuario.setPassword(request.getPassword());
         usuario.setFechaActualizacion(LocalDateTime.now());
         usuario.setUsuarioActualizacion("NISUM");
 
         return usuario;
     }
 
-    private String verificarCorreo(String email, Usuario usuario) throws HandledException {
-
-        if (usuario.getEmail().equals(email)) {
-            return email;
-        }
-
-        validarSiExisteCorreo(email);
-        return email;
-    }
 }
