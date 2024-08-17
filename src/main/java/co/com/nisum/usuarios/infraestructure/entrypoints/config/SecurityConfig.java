@@ -1,15 +1,13 @@
 package co.com.nisum.usuarios.infraestructure.entrypoints.config;
 
 
-import co.com.nisum.usuarios.application.port.JwtGeneratorPort;
+import co.com.nisum.usuarios.application.port.JwtTokenPort;
 import co.com.nisum.usuarios.application.port.UsuarioPort;
 import co.com.nisum.usuarios.infraestructure.entrypoints.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -25,7 +23,7 @@ public class SecurityConfig {
 
     private final AuthenticationProvider authenticationProvider;
 
-    private final JwtGeneratorPort jwtGeneratorPort;
+    private final JwtTokenPort jwtTokenPort;
 
     private final UsuarioPort usuarioPort;
 
@@ -37,18 +35,24 @@ public class SecurityConfig {
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter(jwtGeneratorPort, usuarioPort);
+        return new JwtAuthenticationFilter(jwtTokenPort, usuarioPort);
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(crsf -> crsf.disable())
+                .headers(header ->
+                        header.frameOptions(
+                                frame -> frame.disable())
+                )
                 .authorizeHttpRequests(authRequest ->
-                        authRequest.requestMatchers("/user/register").permitAll()
-                                .anyRequest().authenticated())
+                        authRequest.requestMatchers("/auth/register", "/h2/**").permitAll()
+                                .anyRequest().authenticated()
+                )
                 .sessionManagement(sessionManager ->
-                        sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                        sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .build();

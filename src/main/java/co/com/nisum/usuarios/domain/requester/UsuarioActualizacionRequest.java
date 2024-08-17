@@ -14,9 +14,12 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioActualizacionRequest extends UsuarioRegistroRequest {
+public class UsuarioActualizacionRequest {
 
     @NotNull(message = "El campo no puede ser nulo.")
     private UUID id;
 
+    @NotNull(message = "El campo no puede ser nulo.")
+    @NotBlank(message = "El campo no puede estar vacio.")
+    private String name;
 }

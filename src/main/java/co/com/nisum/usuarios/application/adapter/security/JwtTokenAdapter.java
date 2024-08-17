@@ -1,16 +1,14 @@
-package co.com.nisum.usuarios.application.adapter;
+package co.com.nisum.usuarios.application.adapter.security;
 
-import co.com.nisum.usuarios.application.port.JwtGeneratorPort;
-import co.com.nisum.usuarios.application.port.UsuarioPort;
+import co.com.nisum.usuarios.application.port.JwtTokenPort;
 import co.com.nisum.usuarios.domain.common.Usuario;
 import co.com.nisum.usuarios.domain.exception.HandledException;
-import co.com.nisum.usuarios.domain.mensajes.MensajePersonalizado;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.security.core.Authentication;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.security.Key;
@@ -19,7 +17,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-public class JwtGenerator implements JwtGeneratorPort {
+public class JwtTokenAdapter implements JwtTokenPort {
+
+    @Value("${secretyKey}")
+    private String secretKey;
 
     @Override
     public String generarToken(Usuario usuario) {
@@ -40,7 +41,7 @@ public class JwtGenerator implements JwtGeneratorPort {
 
 
     private Key getKey() {
-        byte[] keyBytes = Decoders.BASE64.decode("LAKJSDFLAKJDFLKAJSFLKJASFKH2H4L2S34534LMLM3M4L3L3L3L3L4LL4L4L43L334L34L3L4L34L34K34HOL2KH4JL2");
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 

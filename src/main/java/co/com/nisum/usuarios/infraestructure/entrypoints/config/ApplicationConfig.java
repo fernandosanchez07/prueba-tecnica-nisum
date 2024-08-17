@@ -1,6 +1,5 @@
 package co.com.nisum.usuarios.infraestructure.entrypoints.config;
 
-import co.com.nisum.usuarios.application.port.JwtGeneratorPort;
 import co.com.nisum.usuarios.application.port.UsuarioPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

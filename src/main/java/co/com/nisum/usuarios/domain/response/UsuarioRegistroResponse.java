@@ -1,11 +1,8 @@
 package co.com.nisum.usuarios.domain.response;
 
-import co.com.nisum.usuarios.domain.requester.TelefonoRequest;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -13,7 +10,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioResponse {
+public class UsuarioRegistroResponse {
 
     private UUID id;
     private LocalDateTime created;

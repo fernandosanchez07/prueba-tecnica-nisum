@@ -1,6 +1,6 @@
 package co.com.nisum.usuarios.infraestructure.entrypoints.jwt;
 
-import co.com.nisum.usuarios.application.port.JwtGeneratorPort;
+import co.com.nisum.usuarios.application.port.JwtTokenPort;
 import co.com.nisum.usuarios.application.port.UsuarioPort;
 import co.com.nisum.usuarios.domain.exception.HandledException;
 import jakarta.servlet.FilterChain;
@@ -18,14 +18,13 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtGeneratorPort jwtGeneratorPort;
+    private final JwtTokenPort jwtTokenPort;
 
     private final UsuarioPort usuarioPort;
 
@@ -37,12 +36,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = obtenerTokenSolicitud(request);
         try {
             if (StringUtils.hasText(token)) {
-                String username = this.jwtGeneratorPort.obtenerNombreDesdeToken(token);
+                String username = this.jwtTokenPort.obtenerNombreDesdeToken(token);
 
                 if (Objects.nonNull(username) &&
                         Objects.isNull(SecurityContextHolder.getContext().getAuthentication())) {
                     UserDetails userDetails = this.usuarioPort.loadUserByUsername(username);
-                    if (this.jwtGeneratorPort.elTokenEsValido(token, userDetails)) {
+                    if (this.jwtTokenPort.elTokenEsValido(token, userDetails)) {
 
                         UsernamePasswordAuthenticationToken authenticationToken =
                                 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

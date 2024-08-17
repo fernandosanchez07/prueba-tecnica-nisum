@@ -1,8 +1,7 @@
 package co.com.nisum.usuarios.application.adapter;
 
-import co.com.nisum.usuarios.application.port.JwtGeneratorPort;
+import co.com.nisum.usuarios.application.port.JwtTokenPort;
 import co.com.nisum.usuarios.domain.common.Usuario;
-import co.com.nisum.usuarios.domain.repository.ContactoTelefonoRepository;
 import co.com.nisum.usuarios.domain.repository.UsuarioRepository;
 import co.com.nisum.usuarios.domain.requester.UsuarioRegistroRequest;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class LoginAdapter {
 
     private final UsuarioRepository usuarioRepository;
-    private final JwtGeneratorPort jwtGeneratorPort;
+    private final JwtTokenPort jwtTokenPort;
 
     private final AuthenticationManager authenticationManager;
 
@@ -23,7 +22,7 @@ public class LoginAdapter {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         Usuario usuario = this.usuarioRepository.consultarPorEmail(request.getEmail());
-        String token = jwtGeneratorPort.generarToken(usuario);
+        String token = jwtTokenPort.generarToken(usuario);
 
     }
 }

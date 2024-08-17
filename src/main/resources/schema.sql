@@ -2,8 +2,8 @@ create table users
 (
     id                    uuid default random_uuid() primary key,
     name                  varchar(100),
-    email                 varchar(100) unique,
-    password              varchar(12),
+    email                 varchar(100) unique not null,
+    password              varchar(12) not null,
     fecha_creacion        timestamp,
     usuario_creacion      varchar(12),
     fecha_actualizacion   timestamp,
