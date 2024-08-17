@@ -42,7 +42,7 @@ Tiene 3 endpoints principales los cuales se pueden ejecutar desde insomnia o pos
    - Este endpoint permite logguear un usuario con su email y password.
    - Este enpoint retorna el id del usuario registrado y su JWT para poder consumir el ultimo endpoint. 
 4. Actualizacion de usuario. **PUT** http://localhost:8000/user/update
-   - Este endpoint permite actualizar el nombre del usuario con el id y el JWT retornado durante el loggueo o registro.
+   - Este endpoint permite actualizar el nombre del usuario si se tiene el id y el JWT.
    - Este endpoint no permite ser consumido si no se le envia el JWT en la peticion.
    - Debe colocarse el insomnia o postman en Bearer token.
  ## Consideraciones
