@@ -12,7 +12,7 @@ Se realizo la prueba para el registro de usuario con los siguientes parametros t
 - Mockito
 - Hibernate
 - JPA
-Entre otras tecnologias y dependencias.
+Se tuvo en cuenta conceptos de clean code, patrones de diseño y principios solid.
 
 ### Base de datos
 Como base de datos se utilizo la base de datos en memoria H2.
@@ -28,9 +28,8 @@ A este se puede acceder en la siguiente URL:
 - [SWAGGER USUARIOS](http://localhost:8000/doc/swagger-ui/index.html)
 
 ## Contexto de funcionamiento
-
-La api se ejecuta en el puerto 8000 pero se puede cambiar en el application.yaml.
-
+En los archivos del proyecto se encuentra un arhcivo con nombre **endpoints-prueba-tecnica-nisum.json** exportado desde insomnia para que los endpoinst se puedan probar mas facilmente.
+La api se ejecuta en el puerto 8000 pero se puede cambiar en el application.yaml, implica ajustar los endpoints del archivo.
 Tiene 3 endpoints principales los cuales se pueden ejecutar desde insomnia:
 
 1. Registro de usuario: **POST** http://localhost:8000/auth/register
@@ -46,9 +45,9 @@ Tiene 3 endpoints principales los cuales se pueden ejecutar desde insomnia:
    - Este endpoint no permite ser consumido si no se le envia el JWT en la peticion.
    - Debe colocarse el insomnia o postman en Bearer token.
  ## Consideraciones
-- Implemente una maqutacion basada en arquitectura hexagonal para serparar la logica de negocio de otras logicas del proyecto.
+- Implemente una maquetacion basada en arquitectura hexagonal para serparar la logica de negocio de otras logicas del proyecto.
   Con esto se buscar respetar el principio de responsabilidad unica, hacemos uso de inyeccion de dependencia e inversion de depencias,
   hago uso del patron adaptador, el patron builde, entre otros posible patrones que en un proyecto mas robusto se podrian implementar.
 - Se agrego una secretKey para la validacion del token, esta key se encuentra en el application.yaml, aunque se puede haber extendido a variables de entorno pero no se hizo para que la prueba se pueda testear mas facilmente.
-- El patron del password actualmente indica que se la password debe tener al menos un caracter numerico, pero puede ser cambiado segun se desee.
+- El patron del password actualmente se encuentra ingualmente en el application.yaml para que pueda se configurable mas facilmente o extenderse a variables de entorno del proyecto,  en este el patron indica indica que se la password debe tener al menos un caracter numerico.
 - Se realizarion pruebas unitarias a diferentes partes del proyecto.
