@@ -43,12 +43,12 @@ Tiene 3 endpoints principales los cuales se pueden ejecutar desde insomnia o pos
    - Este enpoint retorna el id del usuario registrado y su JWT para poder consumir el ultimo endpoint. 
 4. Actualizacion de usuario. **PUT** http://localhost:8000/user/update
    - Este endpoint permite actualizar el nombre del usuario si se tiene el id y el JWT.
-   - Este endpoint no permite ser consumido si no se le envia el JWT en la peticion.
+   - **Este endpoint no permite ser consumido si no se le envia el JWT en la peticion.**
    - Debe colocarse el insomnia o postman en Bearer token.
  ## Consideraciones
 - Implemente una maquetacion basada en arquitectura hexagonal para serparar la logica de negocio de otras logicas del proyecto.
-  Con esto se buscar respetar el principio de responsabilidad unica, hacemos uso de inyeccion de dependencia e inversion de depencias,
-  hago uso del patron adaptador, el patron builde, entre otros posible patrones que en un proyecto mas robusto se podrian implementar.
+  Con esto se buscar respetar los principios SOLID, hago uso de inyeccion e inversion de depencias,
+  hago uso del patron adaptador, del patron builder, entre otros posible patrones, en un proyecto mas robusto se podrian implementar mas y deiferentes patrones.
 - Se agrego una secretKey para la validacion del token, esta key se encuentra en el application.yaml, aunque se puede haber extendido a variables de entorno pero no se hizo para que la prueba se pueda testear mas facilmente.
-- El patron del password actualmente se encuentra ingualmente en el application.yaml para que pueda se configurable mas facilmente o extenderse a variables de entorno del proyecto,  en este el patron indica indica que se la password debe tener al menos un caracter numerico.
+- El patron del password actualmente se encuentra en el application.yaml para que pueda se configurable mas facilmente o extenderse a variables de entorno del proyecto,  en este momento el patron indica indica que se la password debe tener al menos un caracter numerico.
 - Se realizarion pruebas unitarias a diferentes partes del proyecto.
