@@ -8,6 +8,7 @@ import co.com.nisum.usuarios.domain.response.UsuarioRegistroResponse;
 import co.com.nisum.usuarios.infraestructure.entrypoints.service.AutenticacionAppServices;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class AutenticacionController {
     @PostMapping(value = "/register")
     public ResponseEntity<UsuarioRegistroResponse> registrar(@Valid @RequestBody UsuarioRegistroRequest request)
             throws HandledException {
-        return ResponseEntity.ok(this.autenticacionAppServices.registrarUsuario(request));
+        return new ResponseEntity(this.autenticacionAppServices.registrarUsuario(request), HttpStatus.CREATED);
     }
 
         @PostMapping(value = "/login")

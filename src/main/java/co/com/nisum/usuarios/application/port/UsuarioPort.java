@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UsuarioPort {
 
-    UserDetails loadUserByUsername(String username);
+    UserDetails obtenerUserDetails(String username);
 
     UsuarioActualizacionResponse actualizarUsuario(UsuarioActualizacionRequest request) throws HandledException;
 }

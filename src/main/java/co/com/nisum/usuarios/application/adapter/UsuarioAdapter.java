@@ -21,14 +21,14 @@ public class UsuarioAdapter implements UsuarioPort {
     private final UsuarioRepository usuarioRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails obtenerUserDetails(String username) throws UsernameNotFoundException {
         Usuario usuario = this.usuarioRepository.consultarPorEmail(username);
         return new User(usuario.getEmail(), usuario.getPassword(), new ArrayList<>());
     }
 
     @Override
     public UsuarioActualizacionResponse actualizarUsuario(UsuarioActualizacionRequest request) throws HandledException {
-        Usuario usuario = modificarInformacion(request);
+        Usuario usuario = modificarUsuario(request);
 
         Usuario usuarioActualizado = this.usuarioRepository.actualizarUsuario(usuario);
 
@@ -37,7 +37,7 @@ public class UsuarioAdapter implements UsuarioPort {
                 .build();
     }
 
-    private Usuario modificarInformacion(UsuarioActualizacionRequest request) throws HandledException {
+    private Usuario modificarUsuario(UsuarioActualizacionRequest request) throws HandledException {
         Usuario usuario = this.usuarioRepository.consultarPorId(request.getId());
         usuario.setNombre(request.getName());
         usuario.setFechaActualizacion(LocalDateTime.now());

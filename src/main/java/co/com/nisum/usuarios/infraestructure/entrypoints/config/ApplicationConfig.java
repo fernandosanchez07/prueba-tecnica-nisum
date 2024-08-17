@@ -33,7 +33,7 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService obtenerUserDetailService() {
-        return username -> this.usuarioPort.loadUserByUsername(username);
+        return username -> this.usuarioPort.obtenerUserDetails(username);
     }
 
 }
