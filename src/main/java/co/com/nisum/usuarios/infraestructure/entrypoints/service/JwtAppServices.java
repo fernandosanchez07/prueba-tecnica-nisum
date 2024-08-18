@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class JwtAppServices {
 
-    private JwtTokenPort jwtTokenPort;
+    private final JwtTokenPort jwtTokenPort;
 
     public String generarToken(Usuario usuario) {
         return this.jwtTokenPort.generarToken(usuario);
