@@ -44,7 +44,9 @@ Tiene 3 endpoints principales los cuales se pueden ejecutar desde insomnia o pos
 4. Actualizacion de usuario. **PUT** http://localhost:8000/user/update
    - Este endpoint permite actualizar el nombre del usuario si se tiene el id y el JWT.
    - **Este endpoint no permite ser consumido si no se le envia el JWT en la peticion.**
-   - Debe colocarse el insomnia o postman en Bearer token.
+   - Al momento de querer consumir este enpoint debe pasarsele el id del usuario obtenido en el registro o en el loggueo.
+   - Colocar el insomnia o postman en Bearer token y pasar el token devuelto en el registro o en el loggueo.
+
  ## Consideraciones
 - Implemente una maquetacion basada en arquitectura hexagonal para serparar la logica de negocio de otras logicas del proyecto.
   Con esto se buscar respetar los principios SOLID, hago uso de inyeccion e inversion de depencias,
